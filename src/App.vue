@@ -17,20 +17,15 @@ export default {
   mounted() {
     let numbers = [100, 250, 160, 80, 200, 300, 125, 260];
 
+
     // select visual enviroment SVG
     const svg = d3.select('#viz');
-    //========== creazione delle barre======
 
-
-    // join my data, //creo i rettangoli
-    const rects= svg.selectAll('rect')
-        .data(numbers)
-        .join('rect');
 
     // per gestire la lunghezza della figura
     const scaleLength = d3.scaleLinear()
-    .domain([0, d3.max(numbers)])
-    .range([0, 400]);
+        .domain([0, d3.max(numbers)])
+        .range([0, 400]);
 
     //const scalePos= function(d,i) {
     //  return 28 * i + 40
@@ -44,6 +39,15 @@ export default {
         .paddingInner(0.05)
         .paddingOuter(0.05);
 
+  //========== creazione delle barre======
+
+
+    // join my data, //creo i rettangoli
+    const rects= svg.selectAll('rect')
+        .data(numbers)
+        .join('rect');
+
+
     rects
         .attr('x', 20)
         .attr('height', scalePos.bandwidth())
@@ -54,7 +58,7 @@ export default {
 
     //========== creazione del testo delle label======
 
-    const labels = svg.selectAll('text')
+    const labels = svg.selectAll ('text')
         .data(numbers)
         .join('text');
 
