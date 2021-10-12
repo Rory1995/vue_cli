@@ -15,19 +15,18 @@ export default {
 
   },
 
-    // vertical position
-    const scalePos= d3.scaleBand()
-        .domain(d3.range(numbers.length))
-        .range([0, 300])
-        .round(true)
-        .paddingInner(0.05)
-        .paddingOuter(0.05);
-
-  //============create g groups==========
-    svg.append('g')
-      .attr('class','lAxis')
-      .attr('transform', 'translate(20,20)')
-      .call(lAxis);
+  data(){
+    return {
+        numbers: [100, 250, 160, 80, 200, 300, 125, 260],
+    }
+  },
+  mounted() {
+    this.refreshChart(this.numbers);
+  },
+    watch: {
+      numbers(newVal){
+        this.refreshChart(newVal);
+      }
 
     },
 
