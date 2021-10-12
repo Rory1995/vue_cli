@@ -19,6 +19,8 @@ export default {
 
     // select visual enviroment SVG
     const svg = d3.select('#viz');
+    //========== creazione delle barre======
+
 
     // join my data, //creo i rettangoli
     const rects= svg.selectAll('rect')
@@ -46,8 +48,22 @@ export default {
         .attr('x', 20)
         .attr('height', scalePos.bandwidth())
         .attr('y', (d,i) => scalePos(i))
-        .attr('width', scaleLength);
+        .attr('width', scaleLength)
+        .attr('fill', '#89abf3');
 
+
+    //========== creazione del testo delle label======
+
+    const labels = svg.selectAll('text')
+        .data(numbers)
+        .join('text');
+
+    labels
+        .text((d) => d)
+        .attr('x', scaleLength)
+        .attr('y', (d,i) => scalePos(i))
+        .attr('dy', scalePos.bandwidth()/2)
+        .attr('dx', 25)
     }
   }
 
