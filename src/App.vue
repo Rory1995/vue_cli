@@ -15,7 +15,7 @@ export default {
 
   },
   mounted() {
-    let numbers = [100, 250, 160, 80, 200, 300, 125, 260];
+    let numbers = [ 100, 250, 160, 80, 200, 300, 125, 260];
 
 
     // select visual enviroment SVG
@@ -25,11 +25,9 @@ export default {
     // per gestire la lunghezza della figura
     const scaleLength = d3.scaleLinear()
         .domain([0, d3.max(numbers)])
-        .range([0, 400]);
+        .range([0, 500]);
 
-    //const scalePos= function(d,i) {
-    //  return 28 * i + 40
-    //}
+    const lAxis = d3.axisTop(scaleLength)
 
     // vertical position
     const scalePos= d3.scaleBand()
@@ -40,11 +38,17 @@ export default {
         .paddingOuter(0.05);
 
   //============create g groups==========
+    svg.append('g')
+      .attr('class','lAxis')
+      .attr('transform', 'translate(20,20)')
+      .call(lAxis);
+
+
   const gs= svg.selectAll('g.bars')
     .data(numbers)
     .join('g').attr('class','bar')
 
-    gs.attr('transform', (d,i) => `translate(0, ${scalePos(i)})`) //'translate()' -> tutti gli elementi avranno la stessa caratteristica
+    gs.attr('transform', (d,i) => `translate(20, ${30+scalePos(i)})`) //'translate()' -> tutti gli elementi avranno la stessa caratteristica
 
     gs.append('rect') //aggiunta di un rettangolo per ogni elemento
       .attr('height', scalePos.bandwidth())
