@@ -31,7 +31,7 @@ export default {
     //  return 28 * i + 40
     //}
 
-    // per lo spazio tra i rettangoli
+    // vertical position
     const scalePos= d3.scaleBand()
         .domain(d3.range(numbers.length))
         .range([0, 300])
@@ -39,13 +39,32 @@ export default {
         .paddingInner(0.05)
         .paddingOuter(0.05);
 
-  //========== creazione delle barre======
+  //============create g groups==========
+  const gs= svg.selectAll('g.bars')
+    .data(numbers)
+    .join('g').attr('class','bar')
 
+    gs.attr('transform', (d,i) => `translate(0, ${scalePos(i)})`) //'translate()' -> tutti gli elementi avranno la stessa caratteristica
+
+    gs.append('rect') //aggiunta di un rettangolo per ogni elemento
+      .attr('height', scalePos.bandwidth())
+      // non necessito di impostare la y perchè dipende dalla classe madre
+      .attr('width', scaleLength)
+      .attr('fill', '#89abf3');
+
+    gs.append('text')
+      .text((d) => d)
+      .attr('x', scaleLength)
+      .attr('y', scalePos.bandwidth()/2);
+
+  //========== creazione delle barre======
+/*
 
     // join my data, //creo i rettangoli
     const rects= svg.selectAll('rect')
         .data(numbers)
         .join('rect');
+
 
 
     rects
@@ -68,6 +87,8 @@ export default {
         .attr('y', (d,i) => scalePos(i))
         .attr('dy', scalePos.bandwidth()/2)
         .attr('dx', 25)
+    */
+
     }
   }
 
