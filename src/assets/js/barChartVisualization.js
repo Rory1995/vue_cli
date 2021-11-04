@@ -1,23 +1,29 @@
 const d3 = require('d3');
 
 function chart(){
+    // qui ci sono tutte le proprietà della nostra visualizzazione
+    let width=600;
+    let heigth= 300;
 
+    const scaleLength = d3.scaleLinear() //per creare il mapping dei dati con la rappresentazione visuale
+        //.domain([0, d3.max(numbers)])
+        .range([0, width]);
+
+    const lAxis = d3.axisTop(scaleLength); // visual scale mapping per l'asse relativa alla lunghezza della barra
+
+    const scalePos = d3.scaleBand() //per avere una buona posizione delle barre rispetto ai dati disponibili
+        //.domain(d3.range(numbers.length)) //
+        .range([0, heigth])
+        .round(true)
+        .paddingInner(0.05)
+        .paddingOuter(0.05)
+
+    // qui abbiamo tutte le funzioni per modificare i numeri per la nostra visualizzazione ed utilizzare i diversi scale
     function my(selection){
         let numbers = selection.datum(); // estraiamo i dati da rappresentare
 
-
-        const scaleLength = d3.scaleLinear() //per creare il mapping dei dati con la rappresentazione visuale
-            .domain([0, d3.max(numbers)])
-            .range([0, 500]);
-
-        const lAxis = d3.axisTop(scaleLength); // visual scale mapping per l'asse relativa alla lunghezza della barra
-
-        const scalePos = d3.scaleBand() //per avere una buona posizione delle barre rispetto ai dati disponibili
-            .domain(d3.range(numbers.length)) //
-            .range([0, 300])
-            .round(true)
-            .paddingInner(0.05)
-            .paddingOuter(0.05);
+        scaleLength.domain([0, d3.max(numbers)])
+        scalePos.domain(d3.range(numbers.length))
 
         //============create g groups==========
         selection.selectAll('g.lAxis') // qui creiamo le assi evitando duplicati
@@ -50,7 +56,20 @@ function chart(){
 
     }
 
+    my.width = function(value){ // per rendere width modificabile dall'esterno
+        if(arguments.length) return width;
+        width = value;
+        scaleLength.range([0, width]);
+        return my;
+    }
+    my.height = function(value){ // per rendere width modificabile dall'esterno
+        if(arguments.length) return heigth;
+        heigth= value;
+        scalePos.range([0, heigth]);
+        return my;
+    }
+
     return my;
 }
 
-export default chart;
+export default chart; // per rendere la funzione importabile

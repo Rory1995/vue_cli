@@ -25,12 +25,6 @@ const d3 = require('d3');
 import chart from "@/assets/js/barChartVisualization";
 
 
-
-
-
-
-
-
 export default {
   name: 'App',
   components: {},
@@ -52,7 +46,7 @@ export default {
   methods: {
     refreshChart(ListOfNumbers) {
       // const svg = d3.select('#viz');
-      const barChart = chart();
+      const barChart = chart()//.width(600).height(600);
       d3.select('#viz').datum(ListOfNumbers).call(barChart);
 
 
