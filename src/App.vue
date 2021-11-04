@@ -15,10 +15,12 @@
           <svg :width="width" :height="height" id="viz"></svg>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <svg :width="width/2" :height="height/2" id="vizSmall"></svg>
+        </b-col>
+      </b-row>
     </b-container>
-
-
-
   </div>
 </template>
 
@@ -51,7 +53,11 @@ export default {
     refreshChart(ListOfNumbers) {
       // const svg = d3.select('#viz');
       const barChart = chart()//.width(this.width).height(this.height);
+      const smallChart = chart()//.width(this.width/2).height(this.height/2);
+
+
       d3.select('#viz').datum(ListOfNumbers).call(barChart);
+      d3.select('#vizSmall').datum(ListOfNumbers).call(smallChart);
 
 
     },
