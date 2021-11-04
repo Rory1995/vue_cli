@@ -11,7 +11,9 @@
         <b-col><b-button  @click="shuffleNumbers">Shuffle</b-button></b-col>
       </b-row>
       <b-row>
-        <b-col>  <svg width="800" height="600" id="viz"></svg>     </b-col>
+        <b-col>
+          <svg :width="width" :height="height" id="viz"></svg>
+        </b-col>
       </b-row>
     </b-container>
 
@@ -32,6 +34,8 @@ export default {
   data() {
     return {
       numbers: [100, 250, 160, 80, 200, 300, 125, 260],
+      width: 650,
+      height: 500,
     }
   },
   mounted() {
@@ -46,7 +50,7 @@ export default {
   methods: {
     refreshChart(ListOfNumbers) {
       // const svg = d3.select('#viz');
-      const barChart = chart()//.width(600).height(600);
+      const barChart = chart()//.width(this.width).height(this.height);
       d3.select('#viz').datum(ListOfNumbers).call(barChart);
 
 

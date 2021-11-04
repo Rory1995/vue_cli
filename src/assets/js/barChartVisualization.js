@@ -65,7 +65,7 @@ function chart(){
     my.height = function(value){ // per rendere width modificabile dall'esterno
         if(arguments.length) return heigth;
         heigth= value;
-        scalePos.range([0, heigth]);
+        scalePos.range([0, heigth - 50]);
         return my;
     }
 
